@@ -3,9 +3,33 @@
 {"text": "اليوم تعلمت إنه الـ embeddings بتحول النص لأرقام، وكمان فهمت الـ vector database كيف بتدور على أقرب نتيجة", "expected_kind": "summary", "lang": "ar"}
 {"text": "لازم أعمل meeting مع الفريق يوم الخميس عشان نراجع الـ deployment", "expected_kind": "task", "lang": "mixed"}
 {"text": "لازم أشتري أغراض من السوبر ماركت", "expected_kind": "task", "lang": "ar"}
-{"text": "اكتب بوست لينكدان لسلسلة RAG كل يوم ثلاثاء، وانشره الساعة 9 الصبح", "expected_kind": "task", "lang": "mixed"}
 {"text": "عندي ورشة عمل عن الإدارة بتاريخ 11-12-2026", "expected_kind": "task", "lang": "ar"}
-{"text": "لخّص مادة Agents وأنشئ projects على GitHub", "expected_kind": "task", "lang": "mixed"}
 {"text": "ذكّرني بموعد الانترفيو مع شركة ABC بتاريخ 30-11 يوم Monday", "expected_kind": "task", "lang": "mixed"}
 {"text": "اكتبلي كابشن إنستغرام عن أول مشروع RAG خلصته، بأسلوب ملهم", "expected_kind": "content", "lang": "ar"}
 {"text": "Today I learned that re-ranking improves retrieval quality, and that hybrid search combines keyword and vector search.", "expected_kind": "summary", "lang": "en"}
+{"text": "ذكّرني أدفع فاتورة الكهرباء قبل آخر الشهر", "expected_kind": "task", "lang": "ar"}
+{"text": "Book a dentist appointment for next Tuesday, low priority.", "expected_kind": "task", "lang": "en"}
+{"text": "لازم أراجع الـ pull request تبع سارة قبل الظهر", "expected_kind": "task", "lang": "mixed"}
+{"text": "Remind me to write a LinkedIn caption about my project on Thursday.", "expected_kind": "task", "lang": "en"}
+{"text": "اكتبلي بوست لينكدان عن الفرق بين الـ RAG العادي والـ Agentic RAG", "expected_kind": "content", "lang": "mixed"}
+{"text": "Draft an Instagram caption for my trip to Petra, playful tone.", "expected_kind": "content", "lang": "en"}
+{"text": "بدي كابشن لينكدان عن شهادتي بالـ Data Analysis، بأسلوب professional", "expected_kind": "content", "lang": "mixed"}
+{"text": "اليوم بالمحاضرة حكوا عن أنواع الـ chunking، يعني fixed size وsemantic، وكمان عن الـ overlap وليش مهم", "expected_kind": "summary", "lang": "mixed"}
+{"text": "Notes from the meeting: we agreed to move the launch to December, the budget stays the same, and Omar will handle the vendor contract.", "expected_kind": "summary", "lang": "en"}
+{"text": "خلصت كورس الـ SQL، تعلمت joins وsubqueries وwindow functions، وأصعب شي كان الـ window functions", "expected_kind": "summary", "lang": "mixed"}
+{"text": "لخّصلي مادة الـ Agents اللي درستها اليوم", "expected_kind": "summary", "lang": "mixed"}
+{"text": "اكتب بوست لينكدان لسلسلة RAG كل يوم ثلاثاء، وانشره الساعة 9 الصبح", "expected_kind": "content", "lang": "mixed"}
+{"text": "افتكرني أكلم الدكتور بكرة الصبح عشان أحجز ميعاد", "expected_kind": "task", "lang": "ar"}
+{"text": "عايزة كابشن إنستجرام حلو لصورة القهوة، بأسلوب خفيف ودمه خفيف", "expected_kind": "content", "lang": "ar"}
+{"text": "النهارده اتعلمت إن الـ API بيستقبل request وبيرجّع response، وكمان فهمت الفرق بين GET و POST", "expected_kind": "summary", "lang": "mixed"}
+{"text": "ودّي تذكّرني أتصل على أبو محمد بعد صلاة العصر", "expected_kind": "task", "lang": "ar"}
+{"text": "أبغى كابشن للينكدان عن مشروعي الجديد، بأسلوب رسمي", "expected_kind": "content", "lang": "ar"}
+{"text": "اليوم سمعت محاضرة عن الـ embeddings، وفهمت إنها تحوّل الكلام لأرقام، وبعدين نقارن بينها عشان نلقى أقرب معنى", "expected_kind": "summary", "lang": "mixed"}
+{"text": "بدي أروح عالدكتور بعد بكرة، ذكّرني", "expected_kind": "task", "lang": "ar"}
+{"text": "اكتبلي بوست لينكدان عن رحلتي مع الـ AI، بدي إياه ملهم", "expected_kind": "content", "lang": "mixed"}
+{"text": "اليوم خلصت أول مشروع RAG، وأصعب شي كان الـ chunking، وتعلمت إنه الـ overlap بفرق كتير", "expected_kind": "summary", "lang": "mixed"}
+{"text": "ذَكِّرْنِي بِمَوْعِدِ الِاجْتِمَاعِ غَدًا الصَّبَاحَ", "expected_kind": "task", "lang": "ar"}
+{"text": "اُكْتُبْ لِي مَنْشُورًا عَلَى لِينْكِدْإِنْ عَنْ رِحْلَتِي فِي تَعَلُّمِ الذَّكَاءِ الِاصْطِنَاعِيِّ", "expected_kind": "content", "lang": "ar"}
+{"text": "تَعَلَّمْتُ الْيَوْمَ أَنَّ التَّضْمِينَاتِ تُحَوِّلُ النَّصَّ إِلَى أَرْقَامٍ، وَأَنَّ قَاعِدَةَ الْمُتَّجِهَاتِ تَبْحَثُ عَنْ أَقْرَبِ مَعْنًى", "expected_kind": "summary", "lang": "ar"}
+{"text": "يعني... اه... بدي... ذكّرني أدفع الإيجار... اه آخر الشهر", "expected_kind": "task", "lang": "ar"}
+{"text": "كابشن عن السفر", "expected_kind": "content", "lang": "ar"}
