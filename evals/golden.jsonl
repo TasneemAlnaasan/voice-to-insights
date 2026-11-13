@@ -1,0 +1,11 @@
+{"text": "ذكّريني أرسل التقرير لأحمد بكرا، مهم", "expected_kind": "task", "lang": "ar"}
+{"text": "Write me a LinkedIn post about finishing my first RAG project, keep it inspirational.", "expected_kind": "content", "lang": "en"}
+{"text": "اليوم تعلمت إنه الـ embeddings بتحول النص لأرقام، وكمان فهمت الـ vector database كيف بتدور على أقرب نتيجة", "expected_kind": "summary", "lang": "ar"}
+{"text": "لازم أعمل meeting مع الفريق يوم الخميس عشان نراجع الـ deployment", "expected_kind": "task", "lang": "mixed"}
+{"text": "لازم أشتري أغراض من السوبر ماركت", "expected_kind": "task", "lang": "ar"}
+{"text": "اكتب بوست لينكدان لسلسلة RAG كل يوم ثلاثاء، وانشره الساعة 9 الصبح", "expected_kind": "task", "lang": "mixed"}
+{"text": "عندي ورشة عمل عن الإدارة بتاريخ 11-12-2026", "expected_kind": "task", "lang": "ar"}
+{"text": "لخّص مادة Agents وأنشئ projects على GitHub", "expected_kind": "task", "lang": "mixed"}
+{"text": "ذكّرني بموعد الانترفيو مع شركة ABC بتاريخ 30-11 يوم Monday", "expected_kind": "task", "lang": "mixed"}
+{"text": "اكتبلي كابشن إنستغرام عن أول مشروع RAG خلصته، بأسلوب ملهم", "expected_kind": "content", "lang": "ar"}
+{"text": "Today I learned that re-ranking improves retrieval quality, and that hybrid search combines keyword and vector search.", "expected_kind": "summary", "lang": "en"}
