@@ -110,10 +110,12 @@ def _resolve_client() -> tuple[OpenAI, str]:
         model = os.getenv("LOCAL_LLM_MODEL", "qwen2.5-1.5b-instruct")
         return OpenAI(base_url=base_url, api_key="sk-local-noop"), model
 
-    key = os.getenv("OPENAI_API_KEY")
+    key = os.getenv("GROQ_API_KEY")
     if not key:
-        raise RuntimeError("OPENAI_API_KEY is not set — add it to your .env file.")
-    return OpenAI(api_key=key), "gpt-4o"
+        raise RuntimeError("GROQ_API_KEY is not set — add it to your .env file.")
+    model = os.getenv("GROQ_LLM_MODEL", "openai/gpt-oss-20b")
+    return OpenAI(api_key=key, base_url="https://api.groq.com/openai/v1"), model
+    
 
 
 def understand(transcript: str) -> dict:

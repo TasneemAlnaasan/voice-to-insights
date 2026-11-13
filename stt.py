@@ -18,7 +18,7 @@ import os
 from openai import OpenAI
 
 # --- OpenAI API backend ----------------------------------------------------
-OPENAI_STT_MODEL = "gpt-4o-transcribe"
+OPENAI_STT_MODEL = "whisper-large-v3"
 
 # --- Local Whisper backend -------------------------------------------------
 # tiny | base | small | medium | large-v3. "small" is a good live-demo balance;
@@ -53,12 +53,12 @@ def _detect_locale(text: str) -> str:
 
 # --- Backend: OpenAI API ---------------------------------------------------
 def _transcribe_openai(audio_path: str) -> dict:
-    key = os.getenv("OPENAI_API_KEY")
+    key = os.getenv("GROQ_API_KEY")
     if not key:
-        raise STTError("OPENAI_API_KEY is not set — add it to your .env file.")
+        raise STTError("GROQ_API_KEY is not set — add it to your .env file.")
 
     try:
-        client = OpenAI(api_key=key)
+        client = OpenAI(api_key=key, base_url="https://api.groq.com/openai/v1")
         with open(audio_path, "rb") as f:
             result = client.audio.transcriptions.create(
                 model=OPENAI_STT_MODEL,
