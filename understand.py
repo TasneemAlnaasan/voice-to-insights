@@ -128,7 +128,7 @@ def understand(transcript: str) -> dict:
         client, model = _resolve_client()
         resp = client.chat.completions.create(
             model=model,
-            temperature=0.2,
+            temperature=0,
             response_format=RESPONSE_FORMAT,
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},

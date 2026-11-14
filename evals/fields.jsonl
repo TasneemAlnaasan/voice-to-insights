@@ -1,0 +1,12 @@
+{"text": "Remind Sarah to send the Q3 report by next Friday, it's high priority.", "owner": "Sarah", "priority": "high", "has_due_date": true}
+{"text": "ذكّرني أدفع فاتورة الكهرباء قبل آخر الشهر", "owner": null, "priority": "medium", "has_due_date": true}
+{"text": "Book a dentist appointment, low priority.", "owner": null, "priority": "low", "has_due_date": false}
+{"text": "قول لأحمد يجهز العرض التقديمي بكرا، ضروري جداً", "owner": "أحمد", "priority": "high", "has_due_date": true}
+{"text": "لازم أشتري أغراض من السوبر ماركت", "owner": null, "priority": "medium", "has_due_date": false}
+{"text": "Ask Omar to review the pull request", "owner": "Omar", "priority": "medium", "has_due_date": false}
+{"text": "قولي لسارة تبعتلي الملف اليوم", "owner": "سارة", "priority": "medium", "has_due_date": true}
+{"text": "Tell Khaled to update the database, it's urgent.", "owner": "Khaled", "priority": "high", "has_due_date": false}
+{"text": "خلي محمد يراجع العقد قبل الخميس", "owner": "محمد", "priority": "medium", "has_due_date": true}
+{"text": "ذكّرني أكلم ليلى بعد بكرة", "owner": null, "priority": "medium", "has_due_date": true}
+{"text": "I need to renew my passport next month.", "owner": null, "priority": "medium", "has_due_date": true}
+{"text": "ذكّرني أنظف البيت، مش مستعجل", "owner": null, "priority": "low", "has_due_date": false}
