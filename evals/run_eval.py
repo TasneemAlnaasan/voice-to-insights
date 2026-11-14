@@ -25,6 +25,9 @@ def run():
     correct = 0
     for i, ex in enumerate(examples, start=1):
         result = understand(ex["text"])
+        if result["intent"] == "error" and "429" in str(result.get("error")):
+            print("Rate limit reached, stopping. Try again later.")
+            break
         got = result["intent"]
         ok = got == ex["expected_kind"]
         correct += ok

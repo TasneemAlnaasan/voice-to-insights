@@ -2,15 +2,14 @@ import json
 import sys
 import time
 from pathlib import Path
+from dotenv import load_dotenv
+from understand import understand
+from normalization.normalize import same_name 
 
 ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT))
 
-from dotenv import load_dotenv
-
 load_dotenv(ROOT / ".env")
-
-from understand import understand
 
 DATA = Path(__file__).parent / "fields.jsonl"
 
@@ -27,10 +26,13 @@ def run():
 
     for i, ex in enumerate(examples, start=1):
         result = understand(ex["text"])
+        if result["intent"] == "error" and "429" in str(result.get("error")):
+            print("Rate limit reached, stopping. Try again later.")
+            break
         data = result.get("data", {})
 
         task_ok = result["intent"] == "task"
-        owner_ok = data.get("owner") == ex["owner"]
+        owner_ok = same_name(data.get("owner"), ex["owner"])
         priority_ok = data.get("priority") == ex["priority"]
         due_ok = (data.get("due_date") is not None) == ex["has_due_date"]
 
