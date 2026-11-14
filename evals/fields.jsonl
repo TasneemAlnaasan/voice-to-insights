@@ -20,3 +20,17 @@
 {"text": "Tell Sami to update the slides, no rush.", "owner": "Sami", "priority": "low", "has_due_date": false}
 {"text": "Remind me to water the plants whenever I get a chance", "owner": null, "priority": "low", "has_due_date": false}
 {"text": "خلي ريم تبعتلي التقرير فورًا، أهم شي اليوم", "owner": "ريم", "priority": "high", "has_due_date": true}
+{"text": "خلي ريما تبعتلي الملف بكرا، ع مهلها", "owner": "ريما", "priority": "low", "has_due_date": true}
+{"text": "ذكّرني إتصل بالدكتور لمّا فضى", "owner": null, "priority": "low", "has_due_date": false}
+{"text": "الموضوع كتير مستعجل، خلي جورج يسكّر الحساب اليوم", "owner": "جورج", "priority": "high", "has_due_date": true}
+{"text": "خلي نادين تحضّر الاجتماع", "owner": "نادين", "priority": "medium", "has_due_date": false}
+{"text": "افتكرني أبعت الإيميل ده بسرعة، الموضوع عاجل", "owner": null, "priority": "high", "has_due_date": false}
+{"text": "قول لمحمود يظبط الحسابات لما يفضى", "owner": "محمود", "priority": "low", "has_due_date": false}
+{"text": "قول لهند تبعتلي الفاتورة", "owner": "هند", "priority": "medium", "has_due_date": false}
+{"text": "قل لسالم يجهّز السيارة، مب مستعجل", "owner": "سالم", "priority": "low", "has_due_date": false}
+{"text": "أبغى تذكرني أسدد القسط، الموضوع طارئ", "owner": null, "priority": "high", "has_due_date": false}
+{"text": "ذكّرني أحكي مع أبو سامر، مش على عجلة", "owner": null, "priority": "low", "has_due_date": false}
+{"text": "خلي أم خالد تجهز الأغراض، الموضوع مهم كتير", "owner": "أم خالد", "priority": "high", "has_due_date": false}
+{"text": "لازم أعمل follow up مع العميل، مش urgent", "owner": null, "priority": "low", "has_due_date": false}
+{"text": "خلي Sara تبعتلي الـ report بكرا، it's critical", "owner": "Sara", "priority": "high", "has_due_date": true}
+{"text": "ذكّرني أحجز الـ meeting room", "owner": null, "priority": "medium", "has_due_date": false}

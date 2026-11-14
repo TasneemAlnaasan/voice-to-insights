@@ -35,7 +35,10 @@ Then extract the fields for that kind. Rules:
   * If the speaker will do it themselves (e.g. "remind me to call Rami"), owner is null.
   Write names exactly as spoken, in their original script; never translate.
   due_date should be a natural phrase as spoken (e.g. "tomorrow", "next Friday", "غدا").
-  priority is one of low/medium/high (default medium if unclear).
+    priority is one of low/medium/high:
+    * high: the speaker signals urgency or importance ("urgent", "ASAP", "ضروري", "فورًا").
+    * low: the speaker signals it can wait ("not urgent", "no rush", "whenever", "مش مستعجل", "على مهلك").
+    * medium: no signal either way.
 - For content: pick the most fitting platform, write a ready-to-post caption, and
   name the tone (e.g. "professional", "playful", "inspirational").
 - For summary: write a tight summary_text and 2-5 key_points.

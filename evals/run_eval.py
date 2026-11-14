@@ -30,6 +30,8 @@ def run():
         correct += ok
         mark = "PASS" if ok else "FAIL"
         print(f"{i:02d} {mark} expected={ex['expected_kind']} got={got}")
+        if got == "error":
+           print("   error:", result.get("error"))
         time.sleep(1)
     print(f"\nAccuracy: {correct}/{len(examples)} = {correct / len(examples):.0%}")
 
