@@ -16,3 +16,7 @@
 {"text": "ذكّرني أرد على رسالة المدير", "owner": null, "priority": "medium", "has_due_date": false}
 {"text": "Remind me to call Hassan tomorrow", "owner": null, "priority": "medium", "has_due_date": true}
 {"text": "I have to submit the report by Sunday", "owner": null, "priority": "medium", "has_due_date": true}
+{"text": "ذكّرني أرتب الملفات، على مهلك", "owner": null, "priority": "low", "has_due_date": false}
+{"text": "Tell Sami to update the slides, no rush.", "owner": "Sami", "priority": "low", "has_due_date": false}
+{"text": "Remind me to water the plants whenever I get a chance", "owner": null, "priority": "low", "has_due_date": false}
+{"text": "خلي ريم تبعتلي التقرير فورًا، أهم شي اليوم", "owner": "ريم", "priority": "high", "has_due_date": true}
