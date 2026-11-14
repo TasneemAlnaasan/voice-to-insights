@@ -10,3 +10,9 @@
 {"text": "ذكّرني أكلم ليلى بعد بكرة", "owner": null, "priority": "medium", "has_due_date": true}
 {"text": "I need to renew my passport next month.", "owner": null, "priority": "medium", "has_due_date": true}
 {"text": "ذكّرني أنظف البيت، مش مستعجل", "owner": null, "priority": "low", "has_due_date": false}
+{"text": "اطلب من يوسف يحجز القاعة بكرا", "owner": "يوسف", "priority": "medium", "has_due_date": true}
+{"text": "Ask Dana to send me the invoice by Monday, it's urgent.", "owner": "Dana", "priority": "high", "has_due_date": true}
+{"text": "خلي رنا تجهز الاجتماع، مش مستعجل", "owner": "رنا", "priority": "low", "has_due_date": false}
+{"text": "ذكّرني أرد على رسالة المدير", "owner": null, "priority": "medium", "has_due_date": false}
+{"text": "Remind me to call Hassan tomorrow", "owner": null, "priority": "medium", "has_due_date": true}
+{"text": "I have to submit the report by Sunday", "owner": null, "priority": "medium", "has_due_date": true}

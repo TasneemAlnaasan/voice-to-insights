@@ -28,7 +28,12 @@ Classify the note into exactly one kind:
 
 Then extract the fields for that kind. Rules:
 - Always respond in the SAME language the note is mostly in (Arabic in -> Arabic out).
-- For tasks: infer a concise title. owner/due_date are null if not mentioned.
+- - For tasks: infer a concise title. due_date is null if not mentioned.
+  owner = the person who must DO the task:
+  * If the speaker tells, asks or wants someone else to do it (e.g. "tell Rami
+  to book the room", "خلي نور ترسل الفاتورة"), owner is that person's name.
+  * If the speaker will do it themselves (e.g. "remind me to call Rami"), owner is null.
+  Write names exactly as spoken, in their original script; never translate.
   due_date should be a natural phrase as spoken (e.g. "tomorrow", "next Friday", "غدا").
   priority is one of low/medium/high (default medium if unclear).
 - For content: pick the most fitting platform, write a ready-to-post caption, and
