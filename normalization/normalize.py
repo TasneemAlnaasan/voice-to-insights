@@ -17,3 +17,8 @@ def normalize_arabic(text: str) -> str:
     text = text.replace(TATWEEL, "")
     text = text.translate(TABLE) 
     return " ".join(text.split())
+
+def same_name(a, b) -> bool:
+    if a is None or b is None:
+        return a is None and b is None
+    return normalize_arabic(a).casefold() == normalize_arabic(b).casefold()
