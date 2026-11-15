@@ -2,14 +2,15 @@ import json
 import sys
 import time
 from pathlib import Path
-from dotenv import load_dotenv
-from understand import understand
-from normalization.normalize import same_name 
 
 ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT))
 
+from dotenv import load_dotenv 
 load_dotenv(ROOT / ".env")
+
+from understand import understand
+from normalization.normalize import same_name
 
 DATA = Path(__file__).parent / "fields.jsonl"
 
@@ -28,6 +29,7 @@ def run():
         result = understand(ex["text"])
         if result["intent"] == "error" and "429" in str(result.get("error")):
             print("Rate limit reached, stopping. Try again later.")
+            print(result.get("error"))
             break
         data = result.get("data", {})
 

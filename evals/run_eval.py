@@ -27,6 +27,7 @@ def run():
         result = understand(ex["text"])
         if result["intent"] == "error" and "429" in str(result.get("error")):
             print("Rate limit reached, stopping. Try again later.")
+            print(result.get("error"))
             break
         got = result["intent"]
         ok = got == ex["expected_kind"]

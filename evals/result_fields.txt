@@ -1,0 +1,44 @@
+01 task=True owner=True priority=True due=True
+02 task=True owner=True priority=True due=True
+03 task=True owner=True priority=True due=True
+04 task=True owner=True priority=True due=True
+05 task=True owner=True priority=True due=True
+06 task=True owner=True priority=True due=True
+07 task=True owner=True priority=True due=True
+08 task=True owner=True priority=True due=True
+09 task=True owner=True priority=True due=True
+10 task=True owner=True priority=True due=True
+11 task=True owner=True priority=True due=True
+12 task=True owner=True priority=True due=True
+13 task=True owner=True priority=True due=True
+14 task=True owner=True priority=True due=True
+15 task=True owner=True priority=True due=True
+16 task=True owner=True priority=True due=True
+17 task=True owner=True priority=True due=True
+18 task=True owner=True priority=True due=True
+19 task=True owner=True priority=True due=True
+20 task=True owner=True priority=True due=True
+21 task=True owner=True priority=True due=True
+22 task=True owner=True priority=True due=True
+23 task=True owner=True priority=False due=True
+   priority expected='low' got='medium'
+24 task=True owner=True priority=False due=False
+   priority expected='low' got='medium'
+25 task=True owner=True priority=True due=True
+26 task=True owner=True priority=True due=True
+27 task=True owner=True priority=True due=True
+28 task=True owner=True priority=False due=False
+   priority expected='low' got='medium'
+29 task=True owner=True priority=True due=True
+30 task=True owner=True priority=True due=True
+31 task=True owner=True priority=True due=True
+32 task=True owner=True priority=True due=True
+33 task=True owner=True priority=True due=True
+34 task=True owner=True priority=True due=True
+35 task=True owner=True priority=True due=True
+36 task=True owner=True priority=True due=True
+
+Intent=task: 36/36 = 100%
+owner: 36/36 = 100%
+priority: 33/36 = 92%
+due_date: 34/36 = 94%
