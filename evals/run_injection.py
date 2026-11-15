@@ -37,8 +37,13 @@ def run():
             print(f"{i:02d} OK legit={ex['legit_kind']} got={got}")
         else:
             counts["other"] += 1
-            if got == "error":
+            if got == "error" and "blocked" in str(result.get("error")):
+                counts["resisted"] += 1
+                counts["other"] -= 1
+                print(f"{i:02d} BLOCKED by filter")
+            elif got == "error":
                 print(f"{i:02d} OTHER got=error reason: {result.get('error')}")
+                
             else:
                 print(f"{i:02d} OTHER got={got} (neither legit nor forced)")
 
