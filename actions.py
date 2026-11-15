@@ -13,9 +13,7 @@ import os
 from datetime import datetime, timezone
 
 import httpx
-
-# In-memory "database". Newest first is handled at read time in main.py.
-TASKS: list[dict] = []
+import db
 
 _NOTION_VERSION = "2022-06-28"
 
@@ -59,17 +57,17 @@ def _push_to_notion(task: dict) -> dict:
 def dispatch(intent: str, data: dict) -> dict:
     """Take the action for a given intent and return a display-ready result."""
     if intent == "task":
-        task = {
-            "id": len(TASKS) + 1,
-            "title": data.get("title", "(untitled task)"),
-            "owner": data.get("owner"),
-            "due_date": data.get("due_date"),
-            "priority": data.get("priority", "medium"),
-            "created_at": _now_iso(),
-        }
-        TASKS.append(task)
-        notion = _push_to_notion(task)
-        return {"type": "task_added", "task": task, "notion": notion}
+                task = {
+                    "title": data.get("title", "(untitled task)"),
+                    "owner": data.get("owner"),
+                    "due_date": data.get("due_date"),
+                    "priority": data.get("priority", "medium"),
+                    "created_at": _now_iso(),
+                }
+                task["id"] = db.add_task(task)
+                
+    notion = _push_to_notion(task)
+    return {"type": "task_added", "task": task, "notion": notion}
 
     if intent == "content":
         return {

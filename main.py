@@ -20,6 +20,9 @@ load_dotenv()
 import actions
 import stt
 import understand
+import db 
+
+db.init_db()
 
 app = FastAPI(title="Voice-to-Insight Agent")
 
@@ -90,8 +93,7 @@ def understand_endpoint(req: UnderstandRequest) -> JSONResponse:
 # --- Read the running task list ------------------------------------------
 @app.get("/api/tasks")
 def get_tasks() -> dict:
-    return {"tasks": list(reversed(actions.TASKS))}  # newest first
-
+    return {"tasks": db.list_tasks()}  # newest first
 
 # --- Frontend -------------------------------------------------------------
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")

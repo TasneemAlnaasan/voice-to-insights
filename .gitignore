@@ -17,6 +17,7 @@ secrets.json
 
 # ---- Python ----
 __pycache__/
+__pycache__
 *.py[cod]
 *$py.class
 *.so
@@ -110,3 +111,5 @@ desktop.ini
 *.tfstate.*
 .terraform/
 *.pub
+
+tasks.db 
