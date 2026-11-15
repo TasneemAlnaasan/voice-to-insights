@@ -65,9 +65,8 @@ def dispatch(intent: str, data: dict) -> dict:
                     "created_at": _now_iso(),
                 }
                 task["id"] = db.add_task(task)
-                
-    notion = _push_to_notion(task)
-    return {"type": "task_added", "task": task, "notion": notion}
+                notion = _push_to_notion(task)
+                return {"type": "task_added", "task": task, "notion": notion}
 
     if intent == "content":
         return {
