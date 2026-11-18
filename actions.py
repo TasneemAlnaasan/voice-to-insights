@@ -1,26 +1,22 @@
 """
 Action layer: branch on the classified intent and *do* something with it.
 
-- task    -> append to an in-memory list (+ optional Notion push)
+- task    -> save to a SQLite database (+ optional Notion push)
 - content -> format the caption for display
 - summary -> return the structured summary
-
-No database. TASKS is a module-level list that lives for the process lifetime,
-which is all a demo needs.
 """
 
 import os
 from datetime import datetime, timezone
 
 import httpx
+
 import db
 
 _NOTION_VERSION = "2022-06-28"
 
-
 def _now_iso() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
-
 
 def _push_to_notion(task: dict) -> dict:
     """Best-effort push of a task to a Notion database. Returns a status dict."""
@@ -29,13 +25,19 @@ def _push_to_notion(task: dict) -> dict:
     if not api_key or not db_id:
         return {"pushed": False, "reason": "Notion not configured (optional)."}
 
-    # Assumes the DB has a title property named "Name". Extra props are best-effort.
-    payload = {
-        "parent": {"database_id": db_id},
-        "properties": {
-            "Name": {"title": [{"text": {"content": task["title"]}}]},
-        },
+    props = {
+        "Name": {"title": [{"text": {"content": task["title"]}}]},
     }
+
+    if task.get("owner"):
+        props["Owner"] = {"rich_text": [{"text": {"content": task["owner"]}}]}
+    if task.get("due_date"):
+        props["Due"] = {"rich_text": [{"text": {"content": task["due_date"]}}]}
+    if task.get("priority"):
+        props["Priority"] = {"select": {"name": task["priority"]}}
+
+    payload = {"parent": {"database_id": db_id}, "properties": props}
+
     try:
         resp = httpx.post(
             "https://api.notion.com/v1/pages",
@@ -53,20 +55,20 @@ def _push_to_notion(task: dict) -> dict:
     except Exception as exc:
         return {"pushed": False, "reason": f"Notion request failed: {exc}"}
 
-
 def dispatch(intent: str, data: dict) -> dict:
     """Take the action for a given intent and return a display-ready result."""
     if intent == "task":
-                task = {
-                    "title": data.get("title", "(untitled task)"),
-                    "owner": data.get("owner"),
-                    "due_date": data.get("due_date"),
-                    "priority": data.get("priority", "medium"),
-                    "created_at": _now_iso(),
-                }
-                task["id"] = db.add_task(task)
-                notion = _push_to_notion(task)
-                return {"type": "task_added", "task": task, "notion": notion}
+        task = {
+            "title": data.get("title", "(untitled task)"),
+            "owner": data.get("owner"),
+            "due_date": data.get("due_date"),
+            "priority": data.get("priority", "medium"),
+            "created_at": _now_iso(),
+        }
+        
+        task["id"] = db.add_task(task)
+        notion = _push_to_notion(task)
+        return {"type": "task_added", "task": task, "notion": notion}
 
     if intent == "content":
         return {
