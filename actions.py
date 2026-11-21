@@ -12,6 +12,7 @@ from datetime import datetime, timezone
 import httpx
 
 import db
+from rag.answer import answer_question
 
 _NOTION_VERSION = "2022-06-28"
 
@@ -65,7 +66,8 @@ def dispatch(intent: str, data: dict) -> dict:
             "priority": data.get("priority", "medium"),
             "created_at": _now_iso(),
         }
-        
+        # القاعدة بتعطي الـ id بعد الحفظ
+        # The database assigns the id after saving
         task["id"] = db.add_task(task)
         notion = _push_to_notion(task)
         return {"type": "task_added", "task": task, "notion": notion}
@@ -84,5 +86,11 @@ def dispatch(intent: str, data: dict) -> dict:
             "summary_text": data.get("summary_text", ""),
             "key_points": data.get("key_points", []),
         }
+
+    if intent == "question":
+        # الجواب من المستند (بحث + موديل)
+        # The answer comes from the documents (retrieval + model)
+        result = answer_question(data.get("question", ""))
+        return {"type": "answer_generated", **result}
 
     return {"type": "noop", "reason": f"Unknown intent: {intent}"}

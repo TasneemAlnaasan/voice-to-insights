@@ -33,3 +33,14 @@
 {"text": "تَعَلَّمْتُ الْيَوْمَ أَنَّ التَّضْمِينَاتِ تُحَوِّلُ النَّصَّ إِلَى أَرْقَامٍ، وَأَنَّ قَاعِدَةَ الْمُتَّجِهَاتِ تَبْحَثُ عَنْ أَقْرَبِ مَعْنًى", "expected_kind": "summary", "lang": "ar"}
 {"text": "يعني... اه... بدي... ذكّرني أدفع الإيجار... اه آخر الشهر", "expected_kind": "task", "lang": "ar"}
 {"text": "كابشن عن السفر", "expected_kind": "content", "lang": "ar"}
+{"text": "ايش اللي قاله المدرب عن الـ fine-tuning؟", "expected_kind": "question", "lang": "mixed"}
+{"text": "كيف بتحدد الأولوية لمهمة؟", "expected_kind": "question", "lang": "ar"}
+{"text": "when is the next study group meeting?", "expected_kind": "question", "lang": "en"}
+{"text": "شو معنى الـ max iterations بالـ Agent؟", "expected_kind": "question", "lang": "mixed"}
+{"text": "ذكّرني أسأل المدرّب عن الـ chunking يوم الخميس", "expected_kind": "task", "lang": "mixed"}
+{"text": "شو بدنا نعمل بالمراجعة الاسبوعية؟", "expected_kind": "question", "lang": "ar"}
+{"text": "عندي مهمة كبيرة، ذكّرني أقسّمها لخطوات يوم الأحد", "expected_kind": "task", "lang": "ar"}
+{"text": "when are tokens and golden dataset?", "expected_kind": "question", "lang": "en"}
+{"text": "كيف بدنا نجهز ال golden dataset؟", "expected_kind": "question", "lang": "mixed"}
+{"text": "هالشهر خلصت الـ evals والـ guardrails وضل الـ deployment والـ README، لخّصلي هالنقاط", "expected_kind": "summary", "lang": "mixed"}
+{"text": "الأسبوع الجاي عندي اجتماع الأحد ومراجعة الجمعة وتسليم التقرير الثلاثاء، لخّصلي هالمهام", "expected_kind": "summary", "lang": "ar"}

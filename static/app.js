@@ -89,8 +89,14 @@ function renderAction(action) {
     const pts = (action.key_points || []).map((p) => `<li>${escapeHtml(p)}</li>`).join("");
     return `🧾 ${escapeHtml(action.summary_text)}<ul>${pts}</ul>`;
   }
+  if (action.type === "answer_generated") {
+    const src = (action.sources || []).map((s) => `<li>${escapeHtml(s)}</li>`).join("");
+    const err = action.error ? `<div class="meta">⚠ ${escapeHtml(action.error)}</div>` : "";
+    return `💬 ${escapeHtml(action.answer || "")}${err}<div class="meta">Sources:</div><ul>${src}</ul>`;
+  }
   return escapeHtml(JSON.stringify(action));
 }
+
 
 function escapeHtml(str) {
   return String(str).replace(/[&<>"']/g, (c) =>

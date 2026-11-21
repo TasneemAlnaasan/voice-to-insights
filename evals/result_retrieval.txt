@@ -1,0 +1,22 @@
+01 rank=1  top_ids=[7, 11, 12]
+02 rank=1  top_ids=[7, 8, 11]
+03 rank=1  top_ids=[8, 14, 13]
+04 rank=3  top_ids=[7, 11, 8]
+05 rank=2  top_ids=[0, 5, 3]
+06 rank=1  top_ids=[4, 13, 8]
+07 rank=1  top_ids=[1, 0, 10]
+08 rank=1  top_ids=[3, 11, 9]
+09 rank=1  top_ids=[11, 10, 12]
+10 rank=1  top_ids=[9, 10, 11]
+11 rank=1  top_ids=[12, 8, 7]
+12 rank=1  top_ids=[0, 2, 5]
+13 rank=2  top_ids=[11, 10, 9]
+14 rank=1  top_ids=[8, 14, 10]
+15 rank=1  top_ids=[6, 0, 5]
+16 rank=1  top_ids=[6, 5, 2]
+17 rank=1  top_ids=[11, 10, 14]
+18 rank=2  top_ids=[2, 5, 0]
+19 rank=None  top_ids=[2, 0, 1]
+
+Hit@1: 14/19 = 74%
+Hit@3: 18/19 = 95%

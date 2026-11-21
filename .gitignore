@@ -112,4 +112,7 @@ desktop.ini
 .terraform/
 *.pub
 
-tasks.db 
+tasks.db .env
+tasks.db
+__pycache__/
+.fastembed/

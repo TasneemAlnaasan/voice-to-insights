@@ -1,0 +1,19 @@
+{"question": "متى الاجتماع الجاي؟", "expected": "اجتماع فريق الدراسة"}
+{"question": "شو القرارات اللي اتخذناها بالاجتماع؟", "expected": "اجتماع فريق الدراسة"}
+{"question": "what did the coach say about RAG versus fine-tuning?", "expected": "لقاء مع مدرّب"}
+{"question": "شو الواجب المطلوب قبل 22 نوفمبر؟", "expected": "لقاء مع مدرّب"}
+{"question": "كيف بتعامل مع الحلقة اللانهائية بالـ Agent؟", "expected": "مشاكل شائعة"}
+{"question": "شو الفرق بين الذاكرة قصيرة المدى وطويلة المدى؟", "expected": "الذاكرة"}
+{"question": "شو هو الـ tool calling؟", "expected": "Tool Calling"}
+{"question": "شو ميزة Plan-and-Execute؟", "expected": "Plan-and-Execute"}
+{"question": "متى بتكون الأولوية high؟", "expected": "قواعد الأولويات"}
+{"question": "كيف بقسّم مهمة كبيرة؟", "expected": "تقسيم المهمة الكبيرة"}
+{"question": "شو بعمل بالمراجعة الأسبوعية؟", "expected": "المراجعة الأسبوعية"}
+{"question": "what is an AI agent?", "expected": "ما هو الـ Agent"}
+{"question": "كيف بحدد أي مهمة أبدأ فيها أول؟", "expected": "تحديد الأولويات"}
+{"question": "عندي project كيف بدي اعرف ايش استخدم RAG or Fine-tunning؟", "expected": "مدرّب"}
+{"question": "what will be used to evaluate the Agent", "expected": "تقييم"}
+{"question": "كيف بدنا نقيس ال accuracy لل. Agent?", "expected": "تقييم"}
+{"question": "شو معنى انه الاولوية high, medium or low?.", "expected": "قواعد الأولويات"}
+{"question": "ايش هو الprompt injection?", "expected": "مشاكل شائعة"}
+{"question": "ايش هو الpropmt imjection؟", "expected": "مشاكل شائعة"}

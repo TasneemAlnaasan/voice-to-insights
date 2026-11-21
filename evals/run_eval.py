@@ -23,6 +23,7 @@ def load_examples():
 def run():
     examples = load_examples()
     correct = 0
+    total_tokens = 0
     for i, ex in enumerate(examples, start=1):
         result = understand(ex["text"])
         if result["intent"] == "error" and "429" in str(result.get("error")):
@@ -30,6 +31,7 @@ def run():
             print(result.get("error"))
             break
         got = result["intent"]
+        total_tokens += result.get("tokens") or 0
         ok = got == ex["expected_kind"]
         correct += ok
         mark = "PASS" if ok else "FAIL"
@@ -42,3 +44,5 @@ def run():
 
 if __name__ == "__main__":
     run()
+
+print(f"Tokens used: {total_tokens}")
