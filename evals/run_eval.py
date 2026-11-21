@@ -40,9 +40,10 @@ def run():
            print("   error:", result.get("error"))
         time.sleep(1)
     print(f"\nAccuracy: {correct}/{len(examples)} = {correct / len(examples):.0%}")
+    print(f"Tokens used: {total_tokens}")
 
 
 if __name__ == "__main__":
     run()
 
-print(f"Tokens used: {total_tokens}")
+    

@@ -1,3 +1,14 @@
+
+---
+title: Voice to Insights
+emoji: 🎙️
+colorFrom: blue
+colorTo: gray
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 # 🎙️ Voice-to-Insight Agent
 
 A small demo app for a live coding webinar. Record a voice note in **Arabic, English, or a mix of both** → the app transcribes it, classifies the intent, extracts structured data, and takes an action.

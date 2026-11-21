@@ -116,3 +116,10 @@ tasks.db .env
 tasks.db
 __pycache__/
 .fastembed/
+
+
+.env
+tasks.db
+.git
+__pycache__
+evals/result_*.txt
