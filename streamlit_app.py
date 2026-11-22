@@ -76,9 +76,7 @@ st.caption("Arabic / English note → classify → act")
 
 st.subheader("1 · Voice")
 recorded = st.audio_input("Record a voice note")
-uploaded = st.file_uploader(
-    "…or upload a voice note", type=["wav", "mp3", "m4a", "mp4", "webm", "ogg"]
-)
+uploaded = st.file_uploader("…or upload a voice note (any audio or video file)")
 if st.button("Transcribe + run voice note"):
     audio = recorded if recorded is not None else uploaded
     if audio is None:
