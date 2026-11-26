@@ -3,9 +3,10 @@ from pathlib import Path
 
 DB_PATH = Path(__file__).parent / "tasks.db"
 
+
 def _connect():
     conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row  
+    conn.row_factory = sqlite3.Row
     return conn
 
 
@@ -28,6 +29,7 @@ def init_db():
     finally:
         conn.close()
 
+
 def add_task(task: dict) -> int:
     conn = _connect()
     try:
@@ -43,14 +45,24 @@ def add_task(task: dict) -> int:
             ),
         )
         conn.commit()
-        return cur.lastrowid 
+        return cur.lastrowid
     finally:
         conn.close()
+
 
 def list_tasks() -> list[dict]:
     conn = _connect()
     try:
         rows = conn.execute("SELECT * FROM tasks ORDER BY id DESC").fetchall()
         return [dict(r) for r in rows]
+    finally:
+        conn.close()
+
+
+def clear_tasks() -> None:
+    conn = _connect()
+    try:
+        conn.execute("DELETE FROM tasks")
+        conn.commit()
     finally:
         conn.close()

@@ -26,6 +26,18 @@ SAMPLES = [
     "مين مسؤول عن الـ README؟",
 ]
 
+# Used only when the answer has no "found" flag (see is_refusal).
+REFUSAL_HINTS = ("لا أستطيع العثور", "could not find", "couldn't find")
+
+
+def is_refusal(a):
+    """True when the answer says the info is not in the notes."""
+    found = a.get("found")
+    if found is not None:
+        return not found
+    answer = (a.get("answer") or "").lower()
+    return any(h in answer for h in REFUSAL_HINTS)
+
 
 def show_action(a):
     kind = a.get("type")
@@ -33,7 +45,7 @@ def show_action(a):
         st.success("Task added: " + a["task"]["title"])
     elif kind == "caption_generated":
         st.markdown(f"**Caption for {a.get('platform')}** ({a.get('tone') or ''})")
-        st.info(a.get("caption", ""))  
+        st.info(a.get("caption", ""))
     elif kind == "summary_shown":
         st.markdown(a.get("summary_text", ""))
         for p in a.get("key_points", []):
@@ -42,8 +54,9 @@ def show_action(a):
         if a.get("error"):
             st.warning(a["error"])
         st.markdown(a.get("answer", ""))
-        if a.get("sources"):
-            st.caption("Sources: " + " | ".join(a["sources"]))
+        # Show only the top source, and none when the answer is a refusal.
+        if a.get("sources") and not is_refusal(a):
+            st.caption("Source: " + a["sources"][0])
     else:
         st.write(a)
 
@@ -115,3 +128,8 @@ if not tasks:
     st.caption("No tasks yet.")
 for t in tasks:
     st.markdown(f"**{t['title']}**  \n{t['priority']} · {t.get('owner') or ''} · {t.get('due_date') or ''}")
+
+# The task list is shared between all visitors of the demo.
+if tasks and st.button("Clear tasks"):
+    db.clear_tasks()
+    st.rerun()
