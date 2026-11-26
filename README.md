@@ -1,139 +1,104 @@
-
----
-title: Voice to Insights
-emoji: 🎙️
-colorFrom: blue
-colorTo: gray
-sdk: docker
-app_port: 7860
-pinned: false
----
-
 # 🎙️ Voice-to-Insight Agent
 
-A small demo app for a live coding webinar. Record a voice note in **Arabic, English, or a mix of both** → the app transcribes it, classifies the intent, extracts structured data, and takes an action.
+Arabic / English voice or text note → classify → act.
+
+**Live demo:** https://voice-to-insight.streamlit.app/
+
+> The demo's task list is shared between all visitors and resets when the app restarts. Please don't enter personal information.
+
+## What it does
+
+Record a voice note or upload any audio/video file, or just type a note. The audio is transcribed with Whisper, then the text is classified into one of four intents and acted on:
+
+| Intent | What happens |
+|---|---|
+| `task` | Extracts title, owner, due date and priority, and adds it to the task list |
+| `content` | Writes a caption/post for a platform and tone |
+| `summary` | Summarizes only what the speaker said |
+| `question` | Answers from my notes (RAG) and shows the top source section |
+
+## Pipeline
 
 ```
-audio ─▶ /api/transcribe ─▶ /api/understand ─▶ action
-          (OpenAI or           (OpenAI or
-           local Whisper)       local SLM)
+voice / text → stt.transcribe → understand.understand → {intent, data} → actions.dispatch → UI
 ```
 
-Each stage runs **either in the cloud or fully on your machine**, flipped independently by one env var — so you can demo a 100% offline pipeline and still fall back mid-stream.
+A small input filter sits in front of the classifier to block prompt-injection attempts.
 
-Intents & extracted data:
+## Results
 
-| Intent    | Extracted fields                                  | Action                                   |
-|-----------|---------------------------------------------------|------------------------------------------|
-| `task`    | `title`, `owner?`, `due_date?`, `priority`        | Add to in-memory list (+ optional Notion) |
-| `content` | `platform` (instagram/linkedin), `caption`, `tone`| Return a ready-to-post caption           |
-| `summary` | `summary_text`, `key_points[]`                    | Return the structured summary            |
+Every number below comes from a script in `evals/` that writes its output to `evals/result_*.txt`.
 
-No database — tasks live in memory for the process lifetime.
+| Eval | Cases | Result |
+|---|---|---|
+| Intent classification | 46 | 46/46 (100%) |
+| Task fields: owner | 36 | 35/36 (97%) |
+| Task fields: priority | 36 | 32/36 (89%) |
+| Task fields: due date | 36 | 34/36 (94%) |
+| Prompt injection | 7 (5 attacks + 2 legitimate inputs) | 2 of 5 attacks succeeded, 3 blocked by the filter, 2/2 legitimate inputs passed |
+| RAG retrieval | 19 | Hit@1 14/19 (74%), Hit@3 18/19 (95%) |
 
-## Files
+**Cost:** the 46-case intent eval used 59,603 tokens (about 1,300 per request).
 
-| File                | Role                                              |
-|---------------------|---------------------------------------------------|
-| `main.py`           | FastAPI app + routes                              |
-| `stt.py`            | Transcription — OpenAI API *or* local Whisper     |
-| `understand.py`     | Classification/extraction — OpenAI *or* local SLM |
-| `actions.py`        | Intent → action (in-memory tasks, Notion push)    |
-| `static/index.html` | Single-page UI                                    |
-| `static/app.js`     | Mic capture (sends raw audio), staged UI          |
+> These eval sets are small and I used them while tuning prompts, so treat them as development numbers, not benchmarks or security guarantees.
 
-## Setup
+## What I found along the way
+
+**1. The summarizer invented content.** Early summaries padded the output: they added "No other topics mentioned" (not in the note), repeated points, and for a voice note about the "Transformers" lesson it produced an explanation about Fourier transforms, because it read "transformers" as a math term. I added a rule to summarize only what the speaker said. After the fix, a one-line request gets a one-line summary with no extra explanation. I checked this by hand on a few sentences. The evals don't measure invention, so it can still happen.
+
+**2. Speech-to-text errors flow into classification.** Whisper wrote "لكرني" instead of "ذكرني" in two recordings, and the classifier then labelled the note `summary` instead of `task`. The same sentence typed with "ذكرني" was classified as `task`, so the classifier is fine and the error comes from transcription. Both recordings used a text-to-speech voice, not a human speaker, so I don't know yet how often this happens with real speech.
+
+**3. "Not urgent" phrases become `medium` priority.** All 4 priority misses have the same shape: the note says something like "whenever I get a chance" or "no rush", the expected priority is `low`, and the model returns `medium`. In 2 of those 4 the due date was also wrong.
+
+**4. Names can come back in a different script.** In one case the expected owner was an Arabic name and the model returned it in Latin letters. The meaning is right, but the exact-match check fails.
+
+## Known limits
+
+- Eval sets are small and were used during tuning (see above).
+- The injection filter is not a security guarantee: 2 of 5 attacks still got through.
+- Retrieval ranks the right section first in 74% of eval cases (and within the top 3 in 95%), so the single source shown under an answer is not always the section that held the answer.
+- The prompt asks for an answer in the question's language, but an English question got an Arabic answer (the notes are in Arabic). The content was right.
+- Outputs can vary between runs: one Arabic sentence got `low` priority in the live app but `medium` in an eval run.
+- Groq rate limits can stop an eval run halfway, so I run the evals one at a time and re-run if a run is cut off.
+
+## Next steps
+
+- Fix soft-timing phrases ("whenever I can") so they map to `low` priority, and test the fix on new sentences the prompt hasn't seen.
+- Test speech-to-text on real human recordings, then decide whether a transcription hint or a correction step helps.
+- Make the answer follow the question's language more reliably.
+- Keep tasks per visitor (session state) instead of one shared list.
+
+## Run locally
 
 ```bash
-# 1. Virtual env
-python3 -m venv .venv
-source .venv/bin/activate
-
-# 2. Dependencies
 pip install -r requirements.txt
-
-# 3. Env vars
-cp .env.example .env
-#   then edit .env and fill in your keys
+echo "GROQ_API_KEY=your_key_here" > .env
+streamlit run streamlit_app.py
 ```
 
-Required keys in `.env`:
+On Streamlit Community Cloud, put `GROQ_API_KEY` in the app's Secrets instead of the repo.
 
-- `OPENAI_API_KEY` — used for **both** transcription and the understanding layer (the only key you need)
-- `NOTION_API_KEY`, `NOTION_DATABASE_ID` — **optional**; if set, `task` items are also pushed to Notion
-
-## Run
+Run an eval (one at a time):
 
 ```bash
-uvicorn main:app --reload
+python evals/run_fields.py | tee evals/result_fields.txt
+python evals/run_injection.py | tee evals/result_injection.txt
 ```
 
-Open <http://localhost:8000>.
+## Repo layout
 
-Check integration status any time at <http://localhost:8000/api/health>.
-
-## Demo tips (live path)
-
-- **Start green without a mic:** you only need `OPENAI_API_KEY`. Paste text into the fallback box (or click a **Sample** button) and hit **Run text → understand**. The whole classify → extract → act chain runs without touching the mic or transcription at all.
-- Then wire the mic: click **Record**, speak, click **Stop**. The recorded audio is sent **as-is** to OpenAI's transcription API — no `ffmpeg` and no in-browser conversion.
-- Every pipeline stage renders as it completes (transcript → classification → action) so the audience watches the chain, not just the final result.
-- **Errors are loud:** any OpenAI/Notion failure shows in a red banner at the top of the page with the actual message, so you can debug on stage without guessing.
-
-### Transcription backend: cloud vs. local Whisper
-
-| `TRANSCRIBE_BACKEND` | Ears                                        | Needs                     |
-|----------------------|---------------------------------------------|---------------------------|
-| `openai` (default)   | `gpt-4o-transcribe` via OpenAI API          | `OPENAI_API_KEY`          |
-| `local`              | OpenAI's **Whisper** weights via `faster-whisper` | `pip install faster-whisper` |
-
-`faster-whisper` runs the *same* Whisper weights as OpenAI's reference implementation, just on the CTranslate2 runtime — same accuracy, ~4x faster, no `torch` or `ffmpeg` binary required.
-
-```bash
-# in .env:
-TRANSCRIBE_BACKEND=local
-WHISPER_MODEL=small      # tiny | base | small | medium | large-v3
+```
+streamlit_app.py   UI: voice, text, task list
+stt.py             speech-to-text
+understand.py      intent classification + extraction
+actions.py         what each intent does
+db.py              SQLite task storage
+guardrails.py      injection scan (also applied to retrieved notes)
+rag/               retrieval + answer
+evals/             eval sets, scripts and saved results
 ```
 
-The model is downloaded on first use and cached; it stays loaded in memory between requests, so only the **first** transcription pays the load cost. Warm it up once before going live.
+## Credit
 
-On quality: `small` is fine for English, **`medium` is the realistic floor for Lebanese-dialect Arabic**. Unlike the OpenAI path, local Whisper returns a real detected language (shown in the UI with its confidence, e.g. `ar (98%)`) — but it commits to *one* language per clip, so heavily code-switched audio gets labelled by whichever dominates.
+Started from the Day 3 voice-to-insights project in Lara Wehbe's Shift to AI Engineering series. This repo documents my own evaluations and improvements.
 
-### Understanding backend: cloud vs. local SLM
-
-The understanding layer has two interchangeable brains behind the **same strict-JSON contract**, selected by `UNDERSTAND_BACKEND`:
-
-| `UNDERSTAND_BACKEND` | Brain                                  | Needs                          |
-|----------------------|----------------------------------------|--------------------------------|
-| `openai` (default)   | `gpt-4o` via OpenAI API                | `OPENAI_API_KEY`               |
-| `local`              | Qwen2.5-1.5B-Instruct via **llama.cpp**| a running `llama-server`       |
-
-Because llama.cpp constrains generation to the JSON schema (via grammar), even a 1.5B model **cannot** emit invalid JSON — it's forced into shape token by token. The tradeoff is *semantic* quality: a 1.5B model is solid on English intents and lighter on nuanced or Lebanese-dialect Arabic. Keep `openai` as your live fallback — flip one env var if the local model wobbles on stage.
-
-> Set `TRANSCRIBE_BACKEND=local` **and** `UNDERSTAND_BACKEND=local` for a fully offline pipeline — no network calls at all.
-
-**Run the local model:**
-
-```bash
-# 1. Install llama.cpp (macOS). Use a recent build — json_schema response_format
-#    support landed in mid-2024.
-brew install llama.cpp
-
-# 2. Serve Qwen2.5-1.5B-Instruct (auto-downloads the GGUF on first run)
-llama-server -hf Qwen/Qwen2.5-1.5B-Instruct-GGUF -c 4096
-#    -> serves an OpenAI-compatible API at http://localhost:8080
-
-# 3. Point the app at it
-#    in .env:
-#      UNDERSTAND_BACKEND=local
-#      LOCAL_LLM_BASE_URL=http://localhost:8080/v1
-```
-
-Confirm which brain is live at <http://localhost:8000/api/health> (`understand_backend` field). Want the smallest possible model for the "tiny SLM" story? Swap the `-hf` flag to `Qwen/Qwen2.5-0.5B-Instruct-GGUF` and set `LOCAL_LLM_MODEL=qwen2.5-0.5b-instruct` — expect weaker Arabic.
-
-### Language detection
-
-Transcription uses `gpt-4o-transcribe`, which auto-detects language and handles code-switched Arabic/English in one pass. The locale badge (`ar` / `en` / `mixed`) is derived from the script present in the transcript. Prefer an explicit language field? Switch `MODEL` in `stt.py` to `whisper-1` and request `verbose_json`.
-
-### Notion (optional)
-
-The push in `actions.py` assumes your Notion database has a title property named **`Name`**. Adjust the `properties` payload there if yours differs.
